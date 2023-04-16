@@ -12,11 +12,9 @@ datasource db {
 
 model Session {
   id        Int       @id @default(autoincrement())
-  userId    Int   
+  email     String    @db.VarChar(255)  
   token     String
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime? @default(now()) @db.Date
-  updatedAt     DateTime   @updatedAt
+  createdAt DateTime? @default(now()) @db.Date  
 }
 
 model Track {
@@ -35,14 +33,11 @@ model User {
   email     String    @db.VarChar(255)
   password  String
   createdAt DateTime? @default(now()) @db.Date
-  message Message[]
-  session    Session[]
 }
 
-model Message {
+model Contact {
   id        Int       @id @default(autoincrement())
-  text      String?
+  text      String
+  authorId  Int
   createdAt DateTime? @default(now()) @db.Date
-  author    User?     @relation(fields: [authorId], references: [id])
-  authorId  Int?
 }

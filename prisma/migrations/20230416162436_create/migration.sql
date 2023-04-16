@@ -1,9 +1,10 @@
 -- CreateTable
 CREATE TABLE "Session" (
     "id" SERIAL NOT NULL,
-    "email" VARCHAR(255) NOT NULL,
+    "userId" INTEGER NOT NULL,
     "token" TEXT NOT NULL,
     "createdAt" DATE DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
 );
@@ -33,14 +34,14 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Contact" (
+CREATE TABLE "Message" (
     "id" SERIAL NOT NULL,
     "text" TEXT,
     "createdAt" DATE DEFAULT CURRENT_TIMESTAMP,
-    "authorId" INTEGER,
+    "authorId" INTEGER NOT NULL,
 
-    CONSTRAINT "Contact_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Message_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
-ALTER TABLE "Contact" ADD CONSTRAINT "Contact_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

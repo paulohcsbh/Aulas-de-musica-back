@@ -13,7 +13,7 @@ export async function createUser(name: string, email: string, password: string) 
       name,
       email,
       passwordHash  
-    );
+    );    
   }
 
   async function allUsers() {

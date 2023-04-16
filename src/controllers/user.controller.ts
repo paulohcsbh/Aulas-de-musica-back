@@ -4,8 +4,7 @@ import { Request, Response } from "express";
 import httpStatus from 'http-status';
 
 async function usersPost(req: Request, res: Response) {
-  const { name, email, password } = req.body; 
-  
+  const { name, email, password } = req.body;   
   try {
     await userService.createUser( name, email, password );
     return res.sendStatus(httpStatus.CREATED)
@@ -17,8 +16,7 @@ async function usersPost(req: Request, res: Response) {
   }
 }
 
-async function getAllUsers(req: Request, res: Response){
-  
+async function getAllUsers(req: Request, res: Response){  
   try{
     const users = await userService.allUsers();        
     return res.send(users);

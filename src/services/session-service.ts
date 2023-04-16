@@ -2,6 +2,7 @@ import userRepository from "../repositories/user-repository";
 import sessionRepository from "../repositories/session-repository";
 import bcrypt from "bcrypt";
 import { invalidCredentialsError } from "../errors/invalid-credential-error";
+import { duplicatedEmailError } from "../errors/duplicated-email-error";
 import jwt from "jsonwebtoken";
 
 async function allSessions() {
@@ -10,12 +11,15 @@ async function allSessions() {
 }
 
 async function createSession(email: string, password: string) {
-    const user = await userRepository.getUserByEmail(email);
-    
+    const user = await userRepository.getUserByEmail(email); 
+    const userSigned = await sessionRepository.getSessionByEmail(email);  
+    console.log(userSigned)
     if(!user){
         throw invalidCredentialsError();
     }   
-
+    if(userSigned){
+        throw duplicatedEmailError();
+    }
     await validatePasswordOrFail(password, user.password);
 
     await createToken(user.id, user.email);      
