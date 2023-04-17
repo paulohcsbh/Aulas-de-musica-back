@@ -34,7 +34,7 @@ async function validatePasswordOrFail(password: string, userPassword: string) {
     if (!isPasswordValid) throw invalidCredentialsError();
   }
 async function createToken(userId: number, userEmail: string) {
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {expiresIn: 300});
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET);
     await sessionRepository.create(
         userEmail,
         token

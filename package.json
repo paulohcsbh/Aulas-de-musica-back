@@ -9,6 +9,9 @@
     "migration:run": "npx prisma migrate dev",
     "prisma:seed": "npx prisma db seed"
   },
+  "prisma":{
+    "seed": "ts-node prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -27,9 +30,9 @@
     "@types/express": "^4.17.17",
     "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^9.0.1",
-    "@types/node": "^18.15.8",
+    "@types/node": "^18.15.11",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.4"
   }
 }
