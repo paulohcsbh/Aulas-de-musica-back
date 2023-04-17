@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from "cors";
 import userRouter from './routes/user-router';
 import helloRouter from './routes/hello-router';
 import sessionRouter from './routes/session-route';
@@ -9,6 +10,7 @@ dotenv.config();
 
 const app = express();
 app
+    .use(cors())
     .use(express.json())
     .use("/hello", helloRouter)
     .use("/users", userRouter)

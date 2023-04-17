@@ -10,10 +10,14 @@ async function allSessions() {
     return sessions
 }
 
+async function getOneSession(email: string) {
+    const session = await sessionRepository.getSessionByEmail(email);
+    return session
+}
+
 async function createSession(email: string, password: string) {
     const user = await userRepository.getUserByEmail(email); 
     const userSigned = await sessionRepository.getSessionByEmail(email);  
-    console.log(userSigned)
     if(!user){
         throw invalidCredentialsError();
     }   
@@ -30,7 +34,7 @@ async function validatePasswordOrFail(password: string, userPassword: string) {
     if (!isPasswordValid) throw invalidCredentialsError();
   }
 async function createToken(userId: number, userEmail: string) {
-    const token = jwt.sign({ userId }, process.env.JWT_SECRET);
+    const token = jwt.sign({ userId }, process.env.JWT_SECRET, {expiresIn: 300});
     await sessionRepository.create(
         userEmail,
         token
@@ -40,7 +44,8 @@ async function createToken(userId: number, userEmail: string) {
 
 const sessionService = {
     allSessions,
-    createSession
+    createSession,
+    getOneSession
 }
 
 export default sessionService;

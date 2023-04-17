@@ -7,7 +7,19 @@ async function getAllSessions(req: Request, res: Response){
       const sessions = await sessionService.allSessions();        
       return res.send(sessions);
     }catch(err){
-      console.log(err);
+      
+      return res.sendStatus(404);
+      
+    }
+  }
+
+  async function sessionByEmail(req: Request, res: Response){  
+    const { email } = req.body;
+    try{
+      const session = await sessionService.getOneSession(email);        
+      return res.send(session);
+    }catch(err){
+      
       return res.sendStatus(404);
       
     }
@@ -29,7 +41,8 @@ async function getAllSessions(req: Request, res: Response){
 
   const sessionController = {
     getAllSessions,
-    sessionsPost
+    sessionsPost,
+    sessionByEmail
   }
 
   export default sessionController;
