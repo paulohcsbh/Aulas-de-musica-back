@@ -8,7 +8,7 @@ async function getAllSessions(req: Request, res: Response){
       return res.send(sessions);
     }catch(err){
       
-      return res.sendStatus(404);
+      return res.sendStatus(httpStatus.NOT_FOUND);
       
     }
   }
@@ -18,9 +18,8 @@ async function getAllSessions(req: Request, res: Response){
     try{
       const session = await sessionService.getOneSession(email);        
       return res.send(session);
-    }catch(err){
-      
-      return res.sendStatus(404);
+    }catch(err){      
+      return res.sendStatus(httpStatus.NOT_FOUND);
       
     }
   }

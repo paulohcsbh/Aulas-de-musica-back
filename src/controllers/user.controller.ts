@@ -21,8 +21,7 @@ async function getAllUsers(req: Request, res: Response){
     const users = await userService.allUsers();        
     return res.send(users);
   }catch(err){
-    console.log(err);
-    return res.sendStatus(404);
+    return res.sendStatus(httpStatus.BAD_REQUEST);
     
   }
 }
