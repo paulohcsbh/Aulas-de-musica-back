@@ -1,14 +1,13 @@
 import app from "../../src/app";
 import supertest from "supertest";
 import prisma from "../../src/database/db";
-import { generateValidToken } from "../helpers";
+import { generateValidToken, cleanDb } from "../helpers";
 import { createUser } from "../factories/userFactory";
 
 const server = supertest(app);
 
 beforeAll(async() => {
-    await prisma.user.deleteMany({});
-    await prisma.session.deleteMany({});
+    await cleanDb();
 });
 
 describe("GET /contact", () => {    

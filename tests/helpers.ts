@@ -1,9 +1,18 @@
+import prisma from "../src/database/db";
 import * as jwt from "jsonwebtoken";
 import { User } from "@prisma/client";
 
 import { createUser } from "./factories/userFactory";
+
 import { createSession } from "./factories/sessionFactory";
 import { faker } from "@faker-js/faker";
+
+export async function cleanDb() {
+    await prisma.user.deleteMany({});
+    await prisma.session.deleteMany({});
+  }
+
+
 
 export const generateValidBody = () => ({
     name: faker.name.fullName(),

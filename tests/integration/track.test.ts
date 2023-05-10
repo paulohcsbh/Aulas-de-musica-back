@@ -2,14 +2,13 @@ import app from "../../src/app";
 import supertest from "supertest";
 import {faker} from "@faker-js/faker";
 import prisma from "../../src/database/db";
-import { generateValidBody, generateValidToken } from "../helpers";
+import { cleanDb, generateValidToken } from "../helpers";
 import { createUser } from "../factories/userFactory";
 
 const server = supertest(app);
 
 beforeAll(async() => {
-    await prisma.user.deleteMany({});
-    await prisma.session.deleteMany({});
+    await cleanDb()
 });
 
 describe("GET /tracks", () => {    
